@@ -60,6 +60,7 @@
     <Compile Include="Assets\Background.cs" />
     <Compile Include="Assets\Item.cs" />
     <Compile Include="Assets\CharacterManager.cs" />
+    <Compile Include="Assets\Practice\Practice.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
