@@ -57,8 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\SpawnManager.cs" />
-    <Compile Include="Assets\Monster.cs" />
     <Compile Include="Assets\Turret.cs" />
+    <Compile Include="Assets\Monster.cs" />
+    <Compile Include="Assets\Missile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

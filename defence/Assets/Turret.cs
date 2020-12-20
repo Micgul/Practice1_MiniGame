@@ -5,13 +5,15 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     public Monster currentTarget = null;
+    public Transform missileStartTrans;
     public float attackRange = 2f;
-    public float attackSpeed = 1f;
+    public float attackSpeed = 0.1f;
     public GameObject missile = null;
 
     public void Start()
     {
         StartCoroutine(CheckTarget());
+        StartCoroutine(CheckAttack());
     }
 
     public void Update()
@@ -30,8 +32,7 @@ public class Turret : MonoBehaviour
         while (true)
         {
             //타겟을 찾으면 끝
-            int layerMask = 1 << LayerMask.NameToLayer("Monster");//1일때 체크 0일때 체크하지 않음
-            // 그래서 8번인 Monster만 체크해서 layerMask에 넣음.
+            int layerMask = 1 << LayerMask.NameToLayer("Monster"); // 1이면 체크
             Collider[] objs = Physics.OverlapSphere(transform.position, attackRange * 0.5f, layerMask);
 
             foreach (Collider item in objs)
@@ -52,5 +53,29 @@ public class Turret : MonoBehaviour
     private bool CoroutineWait()
     {
         return currentTarget == null;
+    }
+
+    private IEnumerator CheckAttack()
+    {
+        while (true)
+        {
+            if (currentTarget != null)
+            {
+                Attack();
+                yield return new WaitForSeconds(attackSpeed);
+            }
+            else
+            {
+                yield return new WaitWhile(CoroutineWait);
+            }
+        }
+    }
+
+    private void Attack()
+    {
+        GameObject obj = Instantiate(missile);
+        obj.transform.position = missileStartTrans.position;
+        Missile script = obj.GetComponent<Missile>();
+        script.SetTarget(currentTarget, 0.1f);
     }
 }
