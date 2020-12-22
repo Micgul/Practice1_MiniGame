@@ -10,8 +10,6 @@ public class Monster : MonoBehaviour
     private int _waypointIndex;
     private float _moveSpeed = 0.15f;
 
-    private int _hp = 100;
-
     private void Awake()
     {
         _curWayPoint = SpawnManager.Instance.wayPoints[_waypointIndex];
@@ -56,18 +54,6 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private void OnHit(Missile missile)
-    {
-        _hp -= 1;
-        if(_hp <= 0)
-        {
-            Die();
-        }
-    }
 
-    private void Die()
-    {
-        Destroy(this.gameObject);
-    }
 
 }
